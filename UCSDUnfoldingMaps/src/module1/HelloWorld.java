@@ -4,8 +4,13 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
-import de.fhpotsdam.unfolding.providers.Google;
+//import de.fhpotsdam.unfolding.providers.EsriProvider;
+//import de.fhpotsdam.unfolding.providers.GeoMapApp;
+//import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
+//import de.fhpotsdam.unfolding.providers.StamenMapProvider;
+//import de.fhpotsdam.unfolding.providers.ThunderforestProvider;
+import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /** HelloWorld
@@ -46,7 +51,12 @@ public class HelloWorld extends PApplet
 		this.background(200, 200, 200);
 		
 		// Select a map provider
-		AbstractMapProvider provider = new Google.GoogleTerrainProvider();
+		//AbstractMapProvider provider = new Google.GoogleTerrainProvider();
+		AbstractMapProvider provider = new Microsoft.HybridProvider();
+		//AbstractMapProvider provider = new ThunderforestProvider.Landscape();
+		//AbstractMapProvider provider = new StamenMapProvider.WaterColor();
+		//AbstractMapProvider provider = new GeoMapApp.TopologicalGeoMapProvider();
+		//AbstractMapProvider provider = new EsriProvider.DeLorme();
 		// Set a zoom level
 		int zoomLevel = 10;
 		
@@ -74,16 +84,16 @@ public class HelloWorld extends PApplet
 		// This line makes the map interactive
 		MapUtils.createDefaultEventDispatcher(this, map1);
 		
-		// TODO: Add code here that creates map2 
-		// Then you'll modify draw() below
-
+		map2 = new UnfoldingMap(this, 450, 50, 350, 500, provider);
+	    map2.zoomAndPanTo(zoomLevel, new Location(42.4948331f, -83.2045758f));
+		MapUtils.createDefaultEventDispatcher(this, map2);
+		
 	}
 
 	/** Draw the Applet window.  */
 	public void draw() {
-		// So far we only draw map1...
-		// TODO: Add code so that both maps are displayed
 		map1.draw();
+		map2.draw();
 	}
 
 	
