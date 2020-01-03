@@ -6,11 +6,11 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
 //import de.fhpotsdam.unfolding.providers.EsriProvider;
 //import de.fhpotsdam.unfolding.providers.GeoMapApp;
-//import de.fhpotsdam.unfolding.providers.Google;
+import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 //import de.fhpotsdam.unfolding.providers.StamenMapProvider;
 //import de.fhpotsdam.unfolding.providers.ThunderforestProvider;
-import de.fhpotsdam.unfolding.providers.Microsoft;
+//import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
 /** HelloWorld
@@ -51,8 +51,8 @@ public class HelloWorld extends PApplet
 		this.background(200, 200, 200);
 		
 		// Select a map provider
-		//AbstractMapProvider provider = new Google.GoogleTerrainProvider();
-		AbstractMapProvider provider = new Microsoft.HybridProvider();
+		AbstractMapProvider provider = new Google.GoogleTerrainProvider();
+		//AbstractMapProvider provider = new Microsoft.HybridProvider();
 		//AbstractMapProvider provider = new ThunderforestProvider.Landscape();
 		//AbstractMapProvider provider = new StamenMapProvider.WaterColor();
 		//AbstractMapProvider provider = new GeoMapApp.TopologicalGeoMapProvider();
@@ -96,5 +96,4 @@ public class HelloWorld extends PApplet
 		map2.draw();
 	}
 
-	
 }
