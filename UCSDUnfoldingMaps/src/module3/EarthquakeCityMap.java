@@ -118,7 +118,7 @@ public class EarthquakeCityMap extends PApplet {
 	    int blue = color(0,0,255);
 	    int red = color(255,0,0);
 		
-		// TODO (Step 4): Add code below to style the marker's size and color 
+		// (Step 4): Add code below to style the marker's size and color 
 	    // according to the magnitude of the earthquake.  
 	    // Don't forget about the constants THRESHOLD_MODERATE and 
 	    // THRESHOLD_LIGHT, which are declared above.
@@ -148,10 +148,26 @@ public class EarthquakeCityMap extends PApplet {
 
 
 	// helper method to draw key in GUI
-	// TODO: Implement this method to draw the key
+	// Implement this method to draw the key
 	private void addKey() 
 	{	
 		// Remember you can use Processing's graphics methods here
-	
+		fill(233);
+		rect(50, 50, 150, 200);
+		fill(color(255,0,0));
+		ellipse(70,120,16,16);
+		fill(0);
+		text("5.0+ Magnitude",100,120);
+		fill(color(255, 255, 0));
+		ellipse(70,150,12,12);
+		fill(0);
+		text("4.0+ Magnitude",100,150);
+		fill(color(0,0,255));
+		ellipse(70,180,8,8);
+		fill(0);
+		text("Below 4.0",100,180);
+		fill(0);
+		text("Earthquake Key",70,70);
+		
 	}
 }
