@@ -20,7 +20,7 @@ import de.fhpotsdam.unfolding.providers.Microsoft;
 import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.providers.Yahoo;
 import de.fhpotsdam.unfolding.utils.MapUtils;
-
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 //Parsing library
 import parsing.ParseFeed;
 
@@ -115,6 +115,8 @@ public class EarthquakeCityMap extends PApplet {
 		// Here is an example of how to use Processing's color method to generate 
 	    // an int that represents the color yellow.  
 	    int yellow = color(255, 255, 0);
+	    int blue = color(0,0,255);
+	    int red = color(255,0,0);
 		
 		// TODO (Step 4): Add code below to style the marker's size and color 
 	    // according to the magnitude of the earthquake.  
@@ -123,7 +125,16 @@ public class EarthquakeCityMap extends PApplet {
 	    // Rather than comparing the magnitude to a number directly, compare 
 	    // the magnitude to these variables (and change their value in the code 
 	    // above if you want to change what you mean by "moderate" and "light")
-	    
+	    if (mag >= THRESHOLD_MODERATE) {
+	    	marker.setColor(red);
+	    	marker.setRadius(12);
+	    } else if (mag < THRESHOLD_LIGHT) {
+	    	marker.setColor(blue);
+	    	marker.setRadius(4);
+	    } else {
+	    	marker.setColor(yellow);
+	    	marker.setRadius(8);
+	    }
 	    
 	    // Finally return the marker
 	    return marker;
