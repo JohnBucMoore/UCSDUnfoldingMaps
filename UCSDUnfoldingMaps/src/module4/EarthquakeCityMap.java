@@ -1,7 +1,9 @@
 package module4;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
@@ -61,6 +63,8 @@ public class EarthquakeCityMap extends PApplet {
 	// A List of country markers
 	private List<Marker> countryMarkers;
 	
+	private Map<String, Integer> countryQuakeCount;
+	
 	public void setup() {		
 		// (1) Initializing canvas and map tiles
 		size(900, 700, OPENGL);
@@ -112,7 +116,8 @@ public class EarthquakeCityMap extends PApplet {
 		    quakeMarkers.add(new OceanQuakeMarker(feature));
 		  }
 	    }
-
+	    
+	    countryQuakeCount = new HashMap<String, Integer>();
 	    // could be used for debugging
 	    printQuakes();
 	 		
@@ -184,6 +189,25 @@ public class EarthquakeCityMap extends PApplet {
 		return false;
 	}
 	
+	
+	private void getCountryQuakeCount() {
+		for (Marker quake : quakeMarkers) {
+			if (quake.getProperty("country") != null) {
+				String countryKey = quake.getProperty("country").toString();
+				if (countryQuakeCount.containsKey(countryKey)) {
+					countryQuakeCount.put(countryKey, countryQuakeCount.get(countryKey)+1);
+				} else {
+					countryQuakeCount.put(countryKey, 1);
+				}
+			} else {
+				if (countryQuakeCount.containsKey("Ocean")) {
+					countryQuakeCount.put("Ocean", countryQuakeCount.get("Ocean")+1);
+				} else {
+					countryQuakeCount.put("Ocean", 1);
+				}
+			}
+		}
+	}
 	/* prints countries with number of earthquakes as
 	 * Country1: numQuakes1
 	 * Country2: numQuakes2
@@ -192,7 +216,7 @@ public class EarthquakeCityMap extends PApplet {
 	 * */
 	private void printQuakes() 
 	{
-		// TODO: Implement this method
+		// Implement this method
 		// One (inefficient but correct) approach is to:
 		//   Loop over all of the countries, e.g. using 
 		//        for (Marker cm : countryMarkers) { ... }
@@ -216,8 +240,10 @@ public class EarthquakeCityMap extends PApplet {
 		//  * If you know your Marker, m, is a LandQuakeMarker, then it has a "country" 
 		//      property set.  You can get the country with:
 		//        String country = (String)m.getProperty("country");
-		
-		
+		getCountryQuakeCount();
+		for (String country : countryQuakeCount.keySet()) {
+			System.out.println(country+":\t\t"+countryQuakeCount.get(country));
+		}
 	}
 	
 	
