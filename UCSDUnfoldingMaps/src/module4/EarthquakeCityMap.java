@@ -155,11 +155,14 @@ public class EarthquakeCityMap extends PApplet {
 		ellipse(50, 175, 10, 10);
 		fill(color(0, 0, 255));
 		ellipse(50, 225, 5, 5);
+		fill(color(255, 0, 0));
+		triangle(42, 280, 50, 265, 58, 280);
 		
 		fill(0, 0, 0);
 		text("5.0+ Magnitude", 75, 125);
 		text("4.0+ Magnitude", 75, 175);
 		text("Below 4.0", 75, 225);
+		text("City Marker", 75, 275);
 	}
 
 	
