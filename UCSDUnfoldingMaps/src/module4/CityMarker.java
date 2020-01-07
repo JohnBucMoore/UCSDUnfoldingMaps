@@ -36,7 +36,7 @@ public class CityMarker extends SimplePointMarker {
 		// Save previous drawing style
 		pg.pushStyle();
 
-		// TODO: Add code to draw a triangle to represent the CityMarker
+		// Add code to draw a triangle to represent the CityMarker
 		// HINT: pg is the graphics object on which you call the graphics
 		// methods.  e.g. pg.fill(255, 0, 0) will set the color to red
 		// x and y are the center of the object to draw. 
