@@ -29,8 +29,10 @@ public class OceanQuakeMarker extends EarthquakeMarker {
 		// HINT: Notice the radius variable in the EarthquakeMarker class
 		// and how it is set in the EarthquakeMarker constructor
 		
-		float mag = this.getMagnitude();
-		pg.rect(x,y,(3*mag),(3*mag));
+		//float mag = this.getMagnitude();
+		float radius = Float.parseFloat(this.getProperty("radius").toString());
+		float sideLength = (float)((2*(radius))/Math.sqrt(2.0));
+		pg.rect(x,y,sideLength,sideLength);
 	}
 	
 
