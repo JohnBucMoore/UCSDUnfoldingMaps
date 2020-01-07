@@ -68,7 +68,7 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 		drawEarthquake(pg, x, y);
 		
 		// OPTIONAL TODO: draw X over marker if within past day		
-		
+		markRecent(pg, x, y);
 		// reset to previous styling
 		pg.popStyle();
 		
@@ -91,6 +91,13 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 		}
 	}
 	
+	private void markRecent(PGraphics pg, float x, float y) {
+		if (getAge().equals("Past Hour") || getAge().equals("Past Day")) {
+			float r = getRadius();
+			pg.line(x-r, y-r, x+r, y+r);
+			pg.line(x-r, y+r, x+r, y-r);
+		}
+	}
 	
 	/*
 	 * getters for earthquake properties
@@ -118,5 +125,7 @@ public abstract class EarthquakeMarker extends SimplePointMarker
 		return isOnLand;
 	}
 	
-	
+	public String getAge() {
+		return (String) getProperty("age");
+	}
 }

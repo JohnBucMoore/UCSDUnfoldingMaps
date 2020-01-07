@@ -32,7 +32,7 @@ public class OceanQuakeMarker extends EarthquakeMarker {
 		//float mag = this.getMagnitude();
 		float radius = Float.parseFloat(this.getProperty("radius").toString());
 		float sideLength = (float)((2*(radius))/Math.sqrt(2.0));
-		pg.rect(x,y,sideLength,sideLength);
+		pg.rect(x-(sideLength/2),y-(sideLength/2),sideLength,sideLength);
 	}
 	
 
