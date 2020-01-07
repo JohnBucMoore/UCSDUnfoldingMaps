@@ -138,11 +138,11 @@ public class EarthquakeCityMap extends PApplet {
 	}
 	
 	// helper method to draw key in GUI
-	// TODO: Update this method as appropriate
+	// Update this method as appropriate
 	private void addKey() {	
 		// Remember you can use Processing's graphics methods here
 		fill(255, 250, 240);
-		rect(25, 50, 150, 350);
+		rect(25, 50, 150, 300);
 		
 		fill(0);
 		textAlign(LEFT, CENTER);
@@ -150,22 +150,16 @@ public class EarthquakeCityMap extends PApplet {
 		text("Earthquake Key", 50, 75);
 		
 		fill(color(255, 0, 0));
-		ellipse(50, 125, 15, 15);
-		fill(color(255, 255, 0));
-		ellipse(50, 175, 10, 10);
-		fill(color(0, 0, 255));
-		ellipse(50, 225, 5, 5);
-		fill(color(255, 0, 0));
-		triangle(42, 280, 50, 265, 58, 280);
+		triangle(42, 130, 50, 115, 58, 130);
 		fill(color(255, 255, 255));
-		ellipse(50, 325, 10, 10);
+		ellipse(50, 160, 10, 10);
+		rect(45, 195, 10, 10);
 		
 		fill(0, 0, 0);
-		text("5.0+ Magnitude", 75, 125);
-		text("4.0+ Magnitude", 75, 175);
-		text("Below 4.0", 75, 225);
-		text("City Marker", 75, 275);
-		text("Land Quake", 75, 325);
+		text("City Marker", 75, 125);
+		text("Land Quake", 75, 160);
+		text("Ocean Quake", 75, 200);
+		text("Size ~ Magnitude", 50, 225);
 	}
 
 	
