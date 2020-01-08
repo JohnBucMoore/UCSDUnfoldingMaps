@@ -59,6 +59,7 @@ public class EarthquakeCityMap extends PApplet {
 	// A List of country markers
 	private List<Marker> countryMarkers;
 	
+	private List<Marker> selected;
 	// NEW IN MODULE 5
 	private CommonMarker lastSelected;
 	private CommonMarker lastClicked;
@@ -105,6 +106,8 @@ public class EarthquakeCityMap extends PApplet {
 		    quakeMarkers.add(new OceanQuakeMarker(feature));
 		  }
 	    }
+	    
+	    selected = new ArrayList<Marker>();
 
 	    // could be used for debugging
 	    printQuakes();
@@ -114,7 +117,6 @@ public class EarthquakeCityMap extends PApplet {
 	    //           for their geometric properties
 	    map.addMarkers(quakeMarkers);
 	    map.addMarkers(cityMarkers);
-	    
 	}  // End setup
 	
 	
@@ -139,6 +141,7 @@ public class EarthquakeCityMap extends PApplet {
 		}
 		selectMarkerIfHover(quakeMarkers);
 		selectMarkerIfHover(cityMarkers);
+		System.out.println(selected+"\t"+lastSelected);
 	}
 	
 	// If there is a marker under the cursor, and lastSelected is null 
@@ -147,7 +150,25 @@ public class EarthquakeCityMap extends PApplet {
 	// 
 	private void selectMarkerIfHover(List<Marker> markers)
 	{
-		// TODO: Implement this method
+		for (Marker marker : markers) {
+			//check if mouse is inside marker
+			  //set lastSelected to the first marker found
+			  //break
+			if (marker.isInside(map, mouseX, mouseY)) {
+				marker.setSelected(true);
+			} else if (!marker.isInside(map, mouseX, mouseY) && marker.isSelected()) {
+				marker.setSelected(false);
+			}
+			if (marker.isSelected() && !selected.contains(marker)) {
+				selected.add(marker);
+			}
+			if (!marker.isSelected() && selected.contains(marker)) {
+				selected.remove(marker);
+			}
+		}
+		if (!selected.isEmpty()) {
+			lastSelected = (CommonMarker) selected.get(0);
+		}
 	}
 	
 	/** The event handler for mouse clicks
