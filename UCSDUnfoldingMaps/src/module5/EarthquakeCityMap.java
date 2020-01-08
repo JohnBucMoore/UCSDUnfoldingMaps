@@ -59,7 +59,7 @@ public class EarthquakeCityMap extends PApplet {
 	// A List of country markers
 	private List<Marker> countryMarkers;
 	
-	private List<Marker> selected;
+	private List<Marker> mouseInside;
 	// NEW IN MODULE 5
 	private CommonMarker lastSelected;
 	private CommonMarker lastClicked;
@@ -107,7 +107,7 @@ public class EarthquakeCityMap extends PApplet {
 		  }
 	    }
 	    
-	    selected = new ArrayList<Marker>();
+	    mouseInside = new ArrayList<Marker>();
 
 	    // could be used for debugging
 	    printQuakes();
@@ -141,7 +141,6 @@ public class EarthquakeCityMap extends PApplet {
 		}
 		selectMarkerIfHover(quakeMarkers);
 		selectMarkerIfHover(cityMarkers);
-		System.out.println(selected+"\t"+lastSelected);
 	}
 	
 	// If there is a marker under the cursor, and lastSelected is null 
@@ -151,23 +150,23 @@ public class EarthquakeCityMap extends PApplet {
 	private void selectMarkerIfHover(List<Marker> markers)
 	{
 		for (Marker marker : markers) {
-			//check if mouse is inside marker
-			  //set lastSelected to the first marker found
-			  //break
-			if (marker.isInside(map, mouseX, mouseY)) {
-				marker.setSelected(true);
-			} else if (!marker.isInside(map, mouseX, mouseY) && marker.isSelected()) {
-				marker.setSelected(false);
+			if (marker.isInside(map, mouseX, mouseY) && !mouseInside.contains(marker)) {
+				mouseInside.add(marker);
 			}
-			if (marker.isSelected() && !selected.contains(marker)) {
-				selected.add(marker);
+			if (!marker.isInside(map, mouseX, mouseY) && mouseInside.contains(marker)) {
+				if (marker.isSelected()) {
+					marker.setSelected(false);
+				}
+				mouseInside.remove(marker);
 			}
-			if (!marker.isSelected() && selected.contains(marker)) {
-				selected.remove(marker);
+			if (!mouseInside.isEmpty()) {
+				if (mouseInside.get(0).equals(marker)) {
+					marker.setSelected(true);
+				}
 			}
 		}
-		if (!selected.isEmpty()) {
-			lastSelected = (CommonMarker) selected.get(0);
+		if (!mouseInside.isEmpty()) {
+			lastSelected = (CommonMarker) mouseInside.get(0);
 		}
 	}
 	
