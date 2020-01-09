@@ -194,6 +194,13 @@ public class EarthquakeCityMap extends PApplet {
 		// from getting too long/disorganized
 	}
 	
+	public boolean clickedIsEarthquake() {
+		if (lastClicked.getProperty("magnitude") != null) {
+			return true;
+		}
+		return false;
+	}
+	
 	
 	// loop over and unhide all markers
 	private void unhideMarkers() {
@@ -208,14 +215,28 @@ public class EarthquakeCityMap extends PApplet {
 	
 	private void hideMarkers() {
 		for(Marker marker : quakeMarkers) {
-			if (!lastClicked.equals(marker)) {
-				marker.setHidden(true);
+			if (lastClicked != null) {
+				if (!lastClicked.equals(marker) && lastClicked != null) {
+					marker.setHidden(true);
+					if (!clickedIsEarthquake()) {
+						if (marker.getDistanceTo(lastClicked.getLocation()) <= ((EarthquakeMarker) marker).threatCircle()) {
+							marker.setHidden(false);
+						}
+					}
+				}
 			}
 		}
 			
 		for(Marker marker : cityMarkers) {
-			if (!lastClicked.equals(marker)) {
-				marker.setHidden(true);
+			if (lastClicked != null) {
+				if (!lastClicked.equals(marker)) {
+					marker.setHidden(true);
+					if (clickedIsEarthquake()) {
+						if (lastClicked.getDistanceTo(marker.getLocation()) <= ((EarthquakeMarker) lastClicked).threatCircle()) {
+							marker.setHidden(false);
+						}
+					}
+				}
 			}
 		}
 	}
