@@ -170,6 +170,7 @@ public class EarthquakeCityMap extends PApplet {
 		}
 	}
 	
+	
 	/** The event handler for mouse clicks
 	 * It will display an earthquake and its threat circle of cities
 	 * Or if a city is clicked, it will display all the earthquakes 
@@ -178,7 +179,17 @@ public class EarthquakeCityMap extends PApplet {
 	@Override
 	public void mouseClicked()
 	{
-		// TODO: Implement this method
+		if (lastClicked != null) {
+			lastClicked = null;
+			unhideMarkers();
+		} else {
+			if (lastSelected != null) {
+				if (lastSelected.isInside(map, mouseX, mouseY)) {
+					lastClicked = lastSelected;
+				}
+			}
+			hideMarkers();
+		}
 		// Hint: You probably want a helper method or two to keep this code
 		// from getting too long/disorganized
 	}
@@ -192,6 +203,20 @@ public class EarthquakeCityMap extends PApplet {
 			
 		for(Marker marker : cityMarkers) {
 			marker.setHidden(false);
+		}
+	}
+	
+	private void hideMarkers() {
+		for(Marker marker : quakeMarkers) {
+			if (!lastClicked.equals(marker)) {
+				marker.setHidden(true);
+			}
+		}
+			
+		for(Marker marker : cityMarkers) {
+			if (!lastClicked.equals(marker)) {
+				marker.setHidden(true);
+			}
 		}
 	}
 	
