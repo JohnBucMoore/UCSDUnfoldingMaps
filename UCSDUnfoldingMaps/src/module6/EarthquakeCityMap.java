@@ -14,6 +14,7 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
 import de.fhpotsdam.unfolding.providers.Google;
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
+import de.fhpotsdam.unfolding.providers.OpenStreetMap;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import parsing.ParseFeed;
 import processing.core.PApplet;
@@ -73,7 +74,8 @@ public class EarthquakeCityMap extends PApplet {
 		    earthquakesURL = "2.5_week.atom";  // The same feed, but saved August 7, 2015
 		}
 		else {
-			map = new UnfoldingMap(this, 200, 50, 650, 600, new Google.GoogleMapProvider());
+			//map = new UnfoldingMap(this, 200, 50, 650, 600, new Google.GoogleMapProvider());
+			map = new UnfoldingMap(this, 200, 50, 650, 600, new OpenStreetMap.OpenStreetMapProvider());
 			// IF YOU WANT TO TEST WITH A LOCAL FILE, uncomment the next line
 		    //earthquakesURL = "2.5_week.atom";
 		}
@@ -117,13 +119,14 @@ public class EarthquakeCityMap extends PApplet {
 
 	    // could be used for debugging
 	    printQuakes();
+	    System.out.println("\n\n\n\n\n");
+	    sortAndPrint(20);
 	 		
 	    // (3) Add markers to map
 	    //     NOTE: Country markers are not added to the map.  They are used
 	    //           for their geometric properties
 	    map.addMarkers(quakeMarkers);
 	    map.addMarkers(cityMarkers);
-	    
 	    
 	}  // End setup
 	
@@ -135,10 +138,38 @@ public class EarthquakeCityMap extends PApplet {
 		
 	}
 	
+	private void swap(EarthquakeMarker[] array, int quake1, int quake2) {
+		EarthquakeMarker val1 = array[quake1];
+		EarthquakeMarker val2 = array[quake2];
+		array[quake1] = val2;
+		array[quake2] = val1;
+	}
 	
-	// TODO: Add the method:
-	//   private void sortAndPrint(int numToPrint)
-	// and then call that method from setUp
+	private void sortAndPrint(int numToPrint) {
+		EarthquakeMarker[] sortedQuakes = quakeMarkers.toArray(new EarthquakeMarker[quakeMarkers.size()]);
+		int currInd;
+		for (int i = 1; i < sortedQuakes.length; i++) {
+			//sort in reverse order by magnitude
+			currInd = i;
+			EarthquakeMarker quake1 = sortedQuakes[currInd];
+			EarthquakeMarker quake2 = sortedQuakes[currInd-1];
+			while (currInd > 0 && (quake1.getMagnitude() > quake2.getMagnitude())) {
+				if (sortedQuakes[currInd].getMagnitude() > sortedQuakes[currInd-1].getMagnitude()) {
+					swap(sortedQuakes, currInd, currInd-1);
+				}
+				currInd = currInd-1;
+			}
+		}
+		if (sortedQuakes.length <= numToPrint) {
+			for (int j = 0; j < sortedQuakes.length; j++) {
+				System.out.println(sortedQuakes[j].toString());
+			}
+		} else {
+			for (int k = 0; k < numToPrint; k++) {
+				System.out.println(sortedQuakes[k].toString());
+			}
+		}
+	}
 	
 	/** Event handler that gets called automatically when the 
 	 * mouse moves.
